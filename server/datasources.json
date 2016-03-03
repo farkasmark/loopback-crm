@@ -1,0 +1,15 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "mssqlDS": {
+    "host": "localhost",
+    "port": 60053,
+    "database": "StrongLoopDatabase",
+    "username": "sa",
+    "password": "Titok123",
+    "name": "mssqlDS",
+    "connector": "mssql"
+  }
+}
