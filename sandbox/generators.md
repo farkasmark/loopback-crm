@@ -25,7 +25,7 @@ function thunkify (nodefn) { // [1]
     }
   }
 }
-
+```
 
 #### Example:
 
