@@ -2,6 +2,12 @@
 // Generators in Node.js: Common Misconceptions an Three Good Use Cases
 // https://strongloop.com/strongblog/how-to-generators-node-js-yield-use-cases/
 //
+// Further reading on topic:
+// https://medium.com/@tjholowaychuk/callbacks-vs-coroutines-174f1fe66127#.uqol9beow
+// http://jlongster.com/A-Study-on-Solving-Callbacks-with-JavaScript-Generators
+// https://strongloop.com/strongblog/node-js-express-introduction-koa-js-zone/
+// http://eladnava.com/write-synchronous-node-js-code-with-es6-generators/
+//
 
 'use strict';
 
@@ -156,7 +162,7 @@ const ENABLE_ASYNC_CONTROL_FLOW_EXAMPLES = true;
     //       returning early.
     // [7] - If we have more to do, take the value of the next yield and
     //       execute it using our next as the callback.
-    
+    //
     function run(genfn) {
         var gen = genfn() // [1]
         next() // [2]
