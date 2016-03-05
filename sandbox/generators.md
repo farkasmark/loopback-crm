@@ -1,5 +1,6 @@
 # Generators in Node.js
 __Common Misconceptions an Three Good Use Cases__
+
 Based on this great StrongLoop [blogpost](https://strongloop.com/strongblog/how-to-generators-node-js-yield-use-cases/).
 
 ## Asynchronous control flow:
