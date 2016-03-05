@@ -1,5 +1,5 @@
 # Generators in Node.js
-** Common Misconceptions an Three Good Use Cases **
+__Common Misconceptions an Three Good Use Cases__
 
 ## Asynchronous control flow:
 
@@ -24,3 +24,16 @@ function thunkify(nodefn) { // [1]
     }
 }
 ```
+
+#### Example:
+
+```javascript
+var fs = require('fs')
+var readFile = thunkify(fs.readFile) // [1]
+var readAsyncJs = readFile('./async.js') // [2]
+readAsyncJs(function(er, buf) { ... }) // [3]
+```
+
+1. Turns fs.readFile into a thunk-style function.
+2. Setup readFile to read async.js using the same fs.readFile API  without passing the callback argument. No asynchronous operation  is performed yet.
+3. Perform the asynchronous operation and callback.
