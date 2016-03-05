@@ -9,6 +9,8 @@
 // http://eladnava.com/write-synchronous-node-js-code-with-es6-generators/
 // https://blog.risingstack.com/asynchronous-javascript/
 // https://blog.risingstack.com/how-to-become-a-better-node-js-developer-in-2016/
+// https://medium.com/javascript-scene/javascript-training-sucks-284b53666245#.pr0dmtdd5
+// https://medium.com/javascript-scene/what-is-webassembly-the-dawn-of-a-new-era-61256ec5a8f6#.607ljlp69
 //
 
 'use strict';
