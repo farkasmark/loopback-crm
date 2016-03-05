@@ -16,14 +16,14 @@ to be executed:
 3. Enable the asynchronous function to be executed independently  from its initial setup by delaying the execution until its  returned function is called.
 
 ```javascript
-function thunkify(nodefn) { // [1]
-    return function() { // [2]
-        var args = Array.prototype.slice.call(arguments)
-        return function(cb) { // [3]
-            args.push(cb)
-            nodefn.apply(this, args)
-        }
+function thunkify (nodefn) { // [1]
+  return function () { // [2]
+    var args = Array.prototype.slice.call(arguments)
+    return function (cb) { // [3]
+      args.push(cb)
+      nodefn.apply(this, args)
     }
+  }
 }
 
 
@@ -53,18 +53,18 @@ Run function takes a generator function and handles any yielded thunks:
 7. If we have more to do, take the value of the next yield and  execute it using our `next()` as the callback.
 
 ```javascript
-function run(genfn) {
-    var gen = genfn() // [1]
-    next() // [2]
+function run (genfn) {
+  var gen = genfn() // [1]
+  next() // [2]
     
-    function next(er, value) { // [3]
-        if (er) return gen.throw(er) // [4]
-        var continuable = gen.next(value) // [5]
+  function next (er, value) { // [3]
+    if (er) return gen.throw(er) // [4]
+    var continuable = gen.next(value) // [5]
         
-        if (continuable.done) return // [6]
-        var cbfn = continuable.value // [7]
-        cbfn(next);
-    }
+    if (continuable.done) return // [6]
+    var cbfn = continuable.value // [7]
+    cbfn(next);
+  }
 }
 ```
 
@@ -75,12 +75,12 @@ var fs = require('fs')
 var readFile = thunkify(fs.readFile)
 
 run(function* () {
-    try {
-        var file = yield readFile('./sandbox/fibonacci.js')
-        console.log(file.toString())
-    }
-    catch (er) {
-        console.error(er)
-    }
+  try {
+    var file = yield readFile('./sandbox/fibonacci.js')
+    console.log(file.toString())
+  }
+  catch (er) {
+    console.error(er)
+  }
 })
 ```
