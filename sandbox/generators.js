@@ -11,7 +11,7 @@
 // https://blog.risingstack.com/how-to-become-a-better-node-js-developer-in-2016/
 // https://medium.com/javascript-scene/javascript-training-sucks-284b53666245#.pr0dmtdd5
 // https://medium.com/javascript-scene/what-is-webassembly-the-dawn-of-a-new-era-61256ec5a8f6#.607ljlp69
-//
+// http://blog.vullum.io/nodejs-javascript-flow-fibers-generators/ --> that's it.
 
 'use strict';
 
