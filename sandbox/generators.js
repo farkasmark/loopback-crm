@@ -166,6 +166,10 @@ const ENABLE_ASYNC_CONTROL_FLOW_EXAMPLES = true;
   //       returning early.
   // [7] - If we have more to do, take the value of the next yield and
   //       execute it using our next as the callback.
+  // [8] - If the callback function is a promise then execute 'then' method
+  //       of promise
+  // [9] - If the callback function is a thunk then execute callback function
+  //       using next as a callback
   //
   function run (genfn) {
     var gen = genfn() // [1]
@@ -173,25 +177,46 @@ const ENABLE_ASYNC_CONTROL_FLOW_EXAMPLES = true;
         
     function next (er, value) { // [3]
       if (er) return gen.throw(er) // [4]
-      var continuable = gen.next(value) // [5]
+      var ret = gen.next(value) // [5]
             
-      if (continuable.done) return // [6]
-      var cbfn = continuable.value // [7]
-      cbfn(next);
+      if (ret.done) return // [6]
+      var cbfn = ret.value // [7]
+      
+      try {
+        if (typeof cbfn.then === 'function') { // [8]
+            cbfn.then(value => next(null, value), next)
+        } else { // [9]
+            cbfn(next) 
+        }
+      } catch (e) {
+          gen.throw(e)
+      }
     }
   }
-    
-  var fs = require('fs')
-  var readFile = thunkify(fs.readFile)
-    
+      
   run(function* () {
+    let fs = require('fs')
+    let readFile = thunkify(fs.readFile)
+    
     try {
-      var file = yield readFile('./sandbox/fibonacci.js')
+      var file = yield readFile('./sandbox/generators.js')
       console.log(file.toString())
-    }
-    catch (er) {
+    } catch (er) {
       console.error(er)
     }
+  })
+
+  run(function* () {
+    let errorTimeout = thunkify((err, ms, cb) => setTimeout(() => cb(err), ms))
+    
+    const problem = 'Houston, we\'ve got problem!'
+    const timeout = 3000
+    
+    try {
+      yield errorTimeout(problem, timeout)    
+    } catch (er) {
+      console.error(`Exception: ${er}`) // string templates rocks! :)  
+    }    
   })
 
 })(ENABLE_ASYNC_CONTROL_FLOW_EXAMPLES);
